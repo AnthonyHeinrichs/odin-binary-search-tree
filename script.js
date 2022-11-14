@@ -15,4 +15,17 @@ const Tree = (arr) => {
 };
 
 const newTree = Tree([1, 2, 3, 4, 5]);
-console.log(newTree.root);
+
+const prettyPrint = (node, prefix = '', isLeft = true) => {
+  if (node.rightChild !== null) {
+    prettyPrint(node.rightChild, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+  }
+  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+  if (node.leftChild !== null) {
+    prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+  }
+}
+
+prettyPrint(newTree.root)
+
+export { Node }
