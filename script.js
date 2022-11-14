@@ -13,6 +13,16 @@ const Tree = (arr) => {
   // Getting root node and building binary tree
   const root = buildTree(sortedArray);
 
+  const minValue = (root) => {
+    let minv = root.data;
+      while (root.leftChild != null)
+      {
+        minv = root.leftChild.data;
+        root = root.leftChild;
+      }
+      return minv;
+  } 
+
   // Method to insert node in existing binary tree
   const insertNode = (value, newRoot = root) => {
     // if tree is empty, return a new node
@@ -32,11 +42,38 @@ const Tree = (arr) => {
     return newRoot
   }
 
-  const deleteNode = (value) => {
+  const deleteNode = (value, newRoot = root) => {
+    // Check if root is null and return root if true
+    if (newRoot == null) {
+      return newRoot
+    }
 
+    // Find node through recursive calls for ancestors of nodes to be removed
+    if (value < newRoot.data) {
+      newRoot.leftChild = deleteNode(value, newRoot.leftChild)
+    } else if (value > newRoot.data) {
+      newRoot.rightChild = deleteNode(value, newRoot.rightChild)
+    }
+
+    else {
+      // If left child of node is null, return right child
+      if (newRoot.leftChild == null)
+          return newRoot.rightChild;
+      // If right child of node is null, return left child
+      else if (newRoot.rightChild == null)
+          return newRoot.leftChild;
+
+      // Set successor (smallest in the right subtree)
+      newRoot.data = minValue(newRoot.rightChild);
+
+      // Delete the inorder successor
+      newRoot.rightChild = deleteNode(newRoot.data, newRoot.rightChild);
+    }
+    return newRoot;
   }
 
   return {
+    minValue,
     insertNode,
     deleteNode,
     get root() {
@@ -45,7 +82,7 @@ const Tree = (arr) => {
   };
 };
 
-const newTree = Tree([5, 4, 3, 3, 2, 1, 9, 7]);
+const newTree = Tree([5, 4, 2, 1, 9, 7]);
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node.rightChild !== null) {
@@ -57,8 +94,10 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 }
 
-newTree.insertNode(10, newTree.root)
-
+newTree.deleteNode(4)
+newTree.deleteNode(5)
+newTree.deleteNode(7)
 prettyPrint(newTree.root)
+
 
 export { Node }
