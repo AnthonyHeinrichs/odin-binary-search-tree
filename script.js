@@ -13,9 +13,32 @@ const Tree = (arr) => {
   // Getting root node and building binary tree
   const root = buildTree(sortedArray);
 
-  
+  // Method to insert node in existing binary tree
+  const insertNode = (value, newRoot = root) => {
+    // if tree is empty, return a new node
+    if (newRoot == null) {
+      newRoot = Node(value)
+      return newRoot
+    }
+    /* Compare the inserting element with root and if inserting element 
+    is less than root, then recursively call left subtree */
+    if (value < newRoot.data) {
+      newRoot.leftChild = insertNode(value, newRoot.leftChild)
+    }
+    // else if it is greater, recursively call right subtree.
+    else if (value > newRoot.data) {
+      newRoot.rightChild = insertNode(value, newRoot.rightChild)
+    }
+    return newRoot
+  }
+
+  const deleteNode = (value) => {
+
+  }
 
   return {
+    insertNode,
+    deleteNode,
     get root() {
       return root;
     },
@@ -33,6 +56,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
   }
 }
+
+newTree.insertNode(10, newTree.root)
 
 prettyPrint(newTree.root)
 
