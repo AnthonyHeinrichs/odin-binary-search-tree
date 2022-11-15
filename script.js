@@ -72,17 +72,30 @@ const Tree = (arr) => {
     return newRoot;
   }
 
+  const find = (value, newRoot = root) => {
+    if (newRoot == null || newRoot.data == value) {
+      console.log(newRoot)
+      return newRoot
+    }
+    if (value < newRoot.data) {
+      return find(value, newRoot.leftChild)
+    } else {
+      return find(value, newRoot.rightChild)
+    }
+  }
+
   return {
     minValue,
     insertNode,
     deleteNode,
+    find,
     get root() {
       return root;
     },
   };
 };
 
-const newTree = Tree([5, 4, 2, 1, 9, 7]);
+const newTree = Tree([5, 4, 2, 1, 9, 94, 5, 43, 24, 5, 22, 7]);
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node.rightChild !== null) {
@@ -94,10 +107,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 }
 
-newTree.deleteNode(4)
-newTree.deleteNode(5)
-newTree.deleteNode(7)
 prettyPrint(newTree.root)
-
 
 export { Node }
