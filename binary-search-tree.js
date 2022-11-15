@@ -1,4 +1,4 @@
-import Node from './tree-node.js'
+import Node from "./tree-node.js";
 import buildTree from "./build-tree.js";
 import { mergeSort } from "./merge-sort.js";
 
@@ -40,60 +40,60 @@ const Tree = (arr) => {
     return newRoot;
   };
 
-  const deleteNode = (value, newRoot = root) => {
+  const deleteNode = (value, delRoot = root) => {
     // Check if root is null and return root if true
-    if (newRoot == null) {
-      return newRoot;
+    if (delRoot == null) {
+      return delRoot;
     }
 
     // Find node through recursive calls for ancestors of nodes to be removed
-    if (value < newRoot.data) {
-      newRoot.leftChild = deleteNode(value, newRoot.leftChild);
-    } else if (value > newRoot.data) {
-      newRoot.rightChild = deleteNode(value, newRoot.rightChild);
+    if (value < delRoot.data) {
+      delRoot.leftChild = deleteNode(value, delRoot.leftChild);
+    } else if (value > delRoot.data) {
+      delRoot.rightChild = deleteNode(value, delRoot.rightChild);
     } else {
       // If left child of node is null, return right child
-      if (newRoot.leftChild == null) return newRoot.rightChild;
+      if (delRoot.leftChild == null) return delRoot.rightChild;
       // If right child of node is null, return left child
-      else if (newRoot.rightChild == null) return newRoot.leftChild;
+      else if (delRoot.rightChild == null) return delRoot.leftChild;
 
       // Set successor (smallest in the right subtree)
-      newRoot.data = minValue(newRoot.rightChild);
+      delRoot.data = minValue(delRoot.rightChild);
 
       // Delete the inorder successor
-      newRoot.rightChild = deleteNode(newRoot.data, newRoot.rightChild);
+      delRoot.rightChild = deleteNode(delRoot.data, delRoot.rightChild);
     }
-    return newRoot;
+    return delRoot;
   };
 
-  const find = (value, newRoot = root) => {
+  const find = (value, findRoot = root) => {
     /* Check first if root is null or if passed value is the root value, t
     hen return root */
-    if (newRoot == null || newRoot.data == value) {
-      return newRoot;
+    if (findRoot == null || findRoot.data == value) {
+      return findRoot;
     }
     /* If value to find is less than root value, 
     then recursively call find() with roots left child */
-    if (value < newRoot.data) {
-      return find(value, newRoot.leftChild);
+    if (value < findRoot.data) {
+      return find(value, findRoot.leftChild);
     } else {
       /* else value to find must be bigger, 
     then recursively call find() with roots right child */
-      return find(value, newRoot.rightChild);
+      return find(value, findRoot.rightChild);
     }
   };
 
-  const levelOrder = (arr = [], queue = [], newRoot = root) => {
+  const levelOrder = (arr = [], queue = [], showRoot = root) => {
     // If there is no tree, return null tree
-    if (newRoot === null) {
-      return newRoot;
+    if (showRoot === null) {
+      return showRoot;
     }
     // Read root data and push it to array
-    arr.push(newRoot.data);
+    arr.push(showRoot.data);
 
     // Go through each child at the main level and push to queue arr
-    queue.push(newRoot.leftChild);
-    queue.push(newRoot.rightChild);
+    queue.push(showRoot.leftChild);
+    queue.push(showRoot.rightChild);
 
     // Move down one level and recursively call levelOrder
     while (queue.length) {
@@ -107,44 +107,82 @@ const Tree = (arr) => {
     return arr;
   };
 
-  const inorder = (arr = [], newRoot = root) => {
-    if (newRoot == null) {
-      return newRoot;
+  const inorder = (arr = [], showRoot = root) => {
+    if (showRoot == null) {
+      return showRoot;
     }
     // Traverse to furtherst left child of root through recursion
-    inorder(arr, newRoot.leftChild);
+    inorder(arr, showRoot.leftChild);
     // If furthest left or right child, push that node data to array
-    arr.push(newRoot.data);
+    arr.push(showRoot.data);
     // Then traverse to furthest right child through recurssion
-    inorder(arr, newRoot.rightChild);
+    inorder(arr, showRoot.rightChild);
     return arr;
   };
 
-  const preorder = (arr = [], newRoot = root) => {
-    if (newRoot == null) {
-      return newRoot;
+  const preorder = (arr = [], showRoot = root) => {
+    if (showRoot == null) {
+      return showRoot;
     }
     // First push root data to array before each traversal
-    arr.push(newRoot.data);
+    arr.push(showRoot.data);
     // Traverse to furtherst left child of root through recursion
-    preorder(arr, newRoot.leftChild);
+    preorder(arr, showRoot.leftChild);
     // Then traverse to furthest right child through recurssion
-    preorder(arr, newRoot.rightChild);
+    preorder(arr, showRoot.rightChild);
     return arr;
   };
 
-  const postorder = (arr = [], newRoot = root) => {
-    if (newRoot == null) {
-      return newRoot;
+  const postorder = (arr = [], showRoot = root) => {
+    if (showRoot == null) {
+      return showRoot;
     }
     // Traverse to furtherst left child of root through recursion
-    postorder(arr, newRoot.leftChild)
+    postorder(arr, showRoot.leftChild);
     // Then traverse to furthest right child through recurssion
-    postorder(arr, newRoot.rightChild)
+    postorder(arr, showRoot.rightChild);
     // Then push to array after traversing to lowest children first
-    arr.push(newRoot.data)
-    return arr
+    arr.push(showRoot.data);
+    return arr;
   };
+
+  const height = (readRoot = root) => {
+    // First check that there is a root node, return height of 0 if not
+    if (readRoot == null) {
+      return 0;
+    }
+    // Recursively call height on left children to compare with right children
+    let leftChildHeight = height(readRoot.leftChild);
+    // Recursively call height on right children to compare with left children
+    let rightChildHeight = height(readRoot.rightChild);
+    // If left child is greater than right child, add 1 to left child and return
+    if (leftChildHeight > rightChildHeight) {
+      return leftChildHeight + 1;
+    } else {
+      // Else, add 1 to right child and return
+      return rightChildHeight + 1;
+    }
+  };
+
+  const depth = (node, readRoot = root, num = 0) => {
+    if (node == null) {
+      return  `Node doesn't exist`
+    }
+
+    if (readRoot == null) {
+      return `Tree doesn't exist`
+    }
+
+    if (node === readRoot) {
+      return num
+    }
+
+    if (node.data < readRoot.data) {
+      return depth(node, readRoot.leftChild, num += 1)
+    } else {
+      return depth(node, readRoot.rightChild, num += 1)
+    }
+  }
 
   return {
     minValue,
@@ -155,6 +193,8 @@ const Tree = (arr) => {
     inorder,
     preorder,
     postorder,
+    height,
+    depth,
     get root() {
       return root;
     },

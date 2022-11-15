@@ -18,4 +18,6 @@ console.log(newTree.levelOrder())
 console.log(newTree.inorder())
 console.log(newTree.preorder())
 console.log(newTree.postorder());
+console.log(newTree.height())
+console.log(newTree.depth(newTree.root.rightChild))
 
