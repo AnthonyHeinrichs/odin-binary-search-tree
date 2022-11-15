@@ -15,25 +15,33 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-prettyPrint(newTree.root);
-
-// console.log(newTree.levelOrder())
-// console.log(newTree.inorder())
-// console.log(newTree.preorder())
-// console.log(newTree.postorder());
-// console.log(newTree.height())
-
+console.log("Tree is balanced?:", newTree.isBalanced());
+console.log("- - - - - - - - - -");
+console.log("Level order:", newTree.levelOrder());
+console.log("- - - - - - - - - -");
+console.log("In order:", newTree.inorder());
+console.log("- - - - - - - - - -");
+console.log("Pre order:", newTree.preorder());
+console.log("- - - - - - - - - -");
+console.log("Post order:", newTree.postorder());
+console.log("- - - - - - - - - -");
+console.log("Deleting nodes 25, 94, 54, 43, 424, 209");
 newTree.deleteNode(25);
 newTree.deleteNode(94);
 newTree.deleteNode(54);
 newTree.deleteNode(43);
 newTree.deleteNode(424);
 newTree.deleteNode(209);
-console.log("\n");
-prettyPrint(newTree.root);
-
-console.log(newTree.depth(newTree.root.rightChild));
-console.log(newTree.isBalanced());
+console.log("- - - - - - - - - -");
+console.log("Tree is balanced?:", newTree.isBalanced());
+console.log("Rebalancing tree");
 newTree.rebalance();
-prettyPrint(newTree.root);
-console.log(newTree.isBalanced());
+console.log("Tree is balanced?:", newTree.isBalanced());
+console.log("- - - - - - - - - -");
+console.log("Level order:", newTree.levelOrder());
+console.log("- - - - - - - - - -");
+console.log("In order:", newTree.inorder());
+console.log("- - - - - - - - - -");
+console.log("Pre order:", newTree.preorder());
+console.log("- - - - - - - - - -");
+console.log("Post order:", newTree.postorder());
