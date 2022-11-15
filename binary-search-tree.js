@@ -184,6 +184,23 @@ const Tree = (arr) => {
     }
   }
 
+  const isBalanced = (readRoot = root) => {
+    if (readRoot == null) {
+      return 'There is no tree'
+    }
+
+    // Recursively call height on left children to compare with right children
+    const leftHeight = height(readRoot.leftChild);
+    // Recursively call height on right children to compare with left children
+    const rightHeight = height(readRoot.rightChild);
+    // Check if any of the heights are 2 levels higher than the other, if so return false
+    if (leftHeight > rightHeight + 1 || rightHeight > leftHeight + 1) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   return {
     minValue,
     insertNode,
@@ -195,6 +212,7 @@ const Tree = (arr) => {
     postorder,
     height,
     depth,
+    isBalanced,
     get root() {
       return root;
     },
