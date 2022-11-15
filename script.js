@@ -26,8 +26,11 @@ newTree.deleteNode(54)
 newTree.deleteNode(43)
 newTree.deleteNode(424)
 newTree.deleteNode(209)
-
+console.log('\n')
 prettyPrint(newTree.root);
 
 console.log(newTree.depth(newTree.root.rightChild))
+console.log(newTree.isBalanced())
+newTree.rebalance()
+prettyPrint(newTree.root);
 console.log(newTree.isBalanced())

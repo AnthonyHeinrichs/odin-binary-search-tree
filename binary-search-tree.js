@@ -8,7 +8,7 @@ const Tree = (arr) => {
   // Removing duplicates values from array
   sortedArray = [...new Set(sortedArray)];
   // Getting root node and building binary tree
-  const root = buildTree(sortedArray);
+  let root = buildTree(sortedArray);
 
   const minValue = (root) => {
     let minv = root.data;
@@ -201,6 +201,12 @@ const Tree = (arr) => {
     }
   }
 
+  const rebalance = () => {
+    let arr = levelOrder([], [], root)
+    arr = mergeSort(arr)
+    return root = buildTree(arr)
+  }
+
   return {
     minValue,
     insertNode,
@@ -213,6 +219,7 @@ const Tree = (arr) => {
     height,
     depth,
     isBalanced,
+    rebalance,
     get root() {
       return root;
     },
