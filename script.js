@@ -1,6 +1,9 @@
-import Tree from './binary-search-tree.js'
+import Tree from "./binary-search-tree.js";
 
-const newTree = Tree([5, 4, 2, 1, 9, 94, 5, 43, 24, 5, 22, 7, 90, 209, 23, 34, 54, 3, 2, 123, 424, 25]);
+const newTree = Tree([
+  5, 4, 2, 1, 9, 94, 5, 43, 24, 5, 22, 7, 90, 209, 23, 34, 54, 3, 2, 123, 424,
+  25,
+]);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node.rightChild !== null) {
@@ -20,17 +23,17 @@ prettyPrint(newTree.root);
 // console.log(newTree.postorder());
 // console.log(newTree.height())
 
-newTree.deleteNode(25)
-newTree.deleteNode(94)
-newTree.deleteNode(54)
-newTree.deleteNode(43)
-newTree.deleteNode(424)
-newTree.deleteNode(209)
-console.log('\n')
+newTree.deleteNode(25);
+newTree.deleteNode(94);
+newTree.deleteNode(54);
+newTree.deleteNode(43);
+newTree.deleteNode(424);
+newTree.deleteNode(209);
+console.log("\n");
 prettyPrint(newTree.root);
 
-console.log(newTree.depth(newTree.root.rightChild))
-console.log(newTree.isBalanced())
-newTree.rebalance()
+console.log(newTree.depth(newTree.root.rightChild));
+console.log(newTree.isBalanced());
+newTree.rebalance();
 prettyPrint(newTree.root);
-console.log(newTree.isBalanced())
+console.log(newTree.isBalanced());

@@ -166,27 +166,27 @@ const Tree = (arr) => {
 
   const depth = (node, readRoot = root, num = 0) => {
     if (node == null) {
-      return  `Node doesn't exist`
+      return `Node doesn't exist`;
     }
 
     if (readRoot == null) {
-      return `Tree doesn't exist`
+      return `Tree doesn't exist`;
     }
 
     if (node === readRoot) {
-      return num
+      return num;
     }
 
     if (node.data < readRoot.data) {
-      return depth(node, readRoot.leftChild, num += 1)
+      return depth(node, readRoot.leftChild, (num += 1));
     } else {
-      return depth(node, readRoot.rightChild, num += 1)
+      return depth(node, readRoot.rightChild, (num += 1));
     }
-  }
+  };
 
   const isBalanced = (readRoot = root) => {
     if (readRoot == null) {
-      return 'There is no tree'
+      return "There is no tree";
     }
 
     // Recursively call height on left children to compare with right children
@@ -195,17 +195,17 @@ const Tree = (arr) => {
     const rightHeight = height(readRoot.rightChild);
     // Check if any of the heights are 2 levels higher than the other, if so return false
     if (leftHeight > rightHeight + 1 || rightHeight > leftHeight + 1) {
-      return false
+      return false;
     } else {
-      return true
+      return true;
     }
-  }
+  };
 
   const rebalance = () => {
-    let arr = levelOrder([], [], root)
-    arr = mergeSort(arr)
-    return root = buildTree(arr)
-  }
+    let arr = levelOrder([], [], root);
+    arr = mergeSort(arr);
+    return (root = buildTree(arr));
+  };
 
   return {
     minValue,
