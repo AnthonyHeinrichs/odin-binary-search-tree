@@ -1,4 +1,4 @@
-import { Node } from './script.js'
+import Node from './tree-node.js'
 
 export default function buildTree(arr, start = 0, end = arr.length - 1) {
   // Return null if start of array is greater than end
