@@ -15,6 +15,8 @@ const Tree = (arr) => {
 
   const minValue = (root) => {
     let minv = root.data;
+    /* Go through the root's left child node until the child node 
+    returns null, then we have min value */
       while (root.leftChild != null)
       {
         minv = root.leftChild.data;
@@ -73,15 +75,44 @@ const Tree = (arr) => {
   }
 
   const find = (value, newRoot = root) => {
+    /* Check first if root is null or if passed value is the root value, t
+    hen return root */
     if (newRoot == null || newRoot.data == value) {
-      console.log(newRoot)
       return newRoot
     }
+    /* If value to find is less than root value, 
+    then recursively call find() with roots left child */
     if (value < newRoot.data) {
       return find(value, newRoot.leftChild)
     } else {
+    /* else value to find must be bigger, 
+    then recursively call find() with roots right child */
       return find(value, newRoot.rightChild)
     }
+  }
+
+  const levelOrder = (arr = [], queue = [], newRoot = root) => {
+    // If there is no tree, return null tree
+    if (newRoot === null) {
+      return newRoot;
+    }
+    // Read root data and push it to array
+    arr.push(newRoot.data);
+
+    // Go through each child at the main level and push to queue arr
+    queue.push(newRoot.leftChild);
+    queue.push(newRoot.rightChild);
+
+    // Move down one level and recursively call levelOrder
+    while (queue.length) {
+      // Get the root of the next level
+      const nextLevelRoot = queue[0];
+      // Remove first element from queue and return
+      queue.shift();
+      // Call levelOrder again with new root
+      levelOrder(arr, queue, nextLevelRoot)
+    }
+    return arr;
   }
 
   return {
@@ -89,11 +120,14 @@ const Tree = (arr) => {
     insertNode,
     deleteNode,
     find,
+    levelOrder,
     get root() {
       return root;
     },
   };
 };
+
+
 
 const newTree = Tree([5, 4, 2, 1, 9, 94, 5, 43, 24, 5, 22, 7]);
 
@@ -108,5 +142,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 prettyPrint(newTree.root)
+
+console.log(newTree.levelOrder())
 
 export { Node }
